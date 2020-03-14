@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from recording.models import Channel
+from recording.models import Channel, Recording
 
 
 class ChannelSerializer(serializers.ModelSerializer):
@@ -18,4 +18,10 @@ class ChannelSerializer(serializers.ModelSerializer):
         instance.url = validated_data.get('url', instance.url)
         instance.save()
         return instance
+
+
+class RecordingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recording
+        fields = ['channel', 'start_time', 'end_time', 'path', 'filename']
 
