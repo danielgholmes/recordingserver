@@ -3,3 +3,5 @@
 *.dqlite3-journal
 dump.rdb
 recording_files
+celerybeat-schedule
+celerybeat.pid

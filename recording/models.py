@@ -24,10 +24,6 @@ class Channel(models.Model):
         return f'{self.keyname}'
 
 
-def recordings_directory(instance, filename):
-    return f'{instance.channel.channel_type}/{instance.channel.keyname}/{filename}'
-
-
 class Recording(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.PROTECT)
     start_time = models.DateTimeField()
