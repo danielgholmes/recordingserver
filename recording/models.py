@@ -32,12 +32,11 @@ class Recording(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.PROTECT)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    path = models.FileField(upload_to=recordings_directory)
-    filename = models.CharField(max_length=256)
+    path = models.CharField(max_length=256)
 
     class Meta:
         ordering = ('channel', 'start_time')
-        unique_together = ('channel', 'filename')
+        unique_together = ('channel', 'path')
 
     def __str__(self):
-        return f'{self.filename} for channel {self.channel}'
+        return f'{self.path} for channel {self.channel}'

@@ -1,4 +1,5 @@
 .idea
 *.sqlite3
 *.dqlite3-journal
-
+dump.rdb
+recording_files

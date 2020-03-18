@@ -13,7 +13,7 @@ class ChannelView(APIView):
         serializer = ChannelSerializer(channel)
         return Response({"channel": serializer.data})
 
-    def post(self, request):
+    def post(self, request, pk):
         channel = request.data.get('channel')
         serializer = ChannelSerializer(data=channel)
         if serializer.is_valid(raise_exception=True):
