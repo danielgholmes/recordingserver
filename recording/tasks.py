@@ -13,14 +13,22 @@ class RecordingError(Exception):
 
 
 @task
-def start_recordings():
+def start_recordings() -> None:
+    """
+    Parent task that starts periodically runs and initiates the recording threads for each channel
+    """
     channels = Channel.objects.all().values()
     for channel in channels:
         record_channel(channel)
 
 
 @task
-def record_channel(channel):
+def record_channel(channel) -> None:
+    """
+    Initiate a recording thread on a channel
+    :param channel: the channel on which a recording will take place
+    :return: None
+    """
     start_time = datetime.now(timezone.utc)
     start_time_formatted = start_time.strftime("%Y%m%d_%H%M%S")
     keyname = channel['keyname']
@@ -28,7 +36,7 @@ def record_channel(channel):
     url = channel['url']
 
     path = f'recording_files/{channel_type}/{keyname}/'
-    pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(path).mkdir(parents=True, exist_ok=True)  # create the file directories
 
     if channel_type == Channel.TV:
         file_format = '.mp4'

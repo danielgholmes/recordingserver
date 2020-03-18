@@ -4,6 +4,9 @@ from recording.models import Channel, Recording
 
 
 class ChannelSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the channel model
+    """
     class Meta:
         model = Channel
         fields = ['name', 'keyname', 'channel_type', 'url']
@@ -23,5 +26,5 @@ class ChannelSerializer(serializers.ModelSerializer):
 class RecordingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recording
-        fields = ['channel', 'start_time', 'end_time', 'path', 'filename']
+        fields = ['channel', 'start_time', 'end_time', 'path']
 

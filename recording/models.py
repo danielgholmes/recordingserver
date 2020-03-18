@@ -3,6 +3,9 @@ from django.db import models
 
 
 class Channel(models.Model):
+    """
+    Model for channels on which the recording takes place
+    """
     RADIO = 'radio'
     TV = 'tv'
     CHANNEL_TYPES = (
@@ -25,6 +28,9 @@ class Channel(models.Model):
 
 
 class Recording(models.Model):
+    """
+    Model for recordings that take place on a channel
+    """
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()

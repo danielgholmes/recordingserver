@@ -7,13 +7,16 @@ from recording.serializers import ChannelSerializer, RecordingSerializer
 
 
 class ChannelView(APIView):
+    """
+    View for all CRUD operations on a channel
+    """
     def get(self, request, pk):
         channels = Channel.objects.all()
         channel = get_object_or_404(channels, pk=pk)
         serializer = ChannelSerializer(channel)
         return Response({"channel": serializer.data})
 
-    def post(self, request, pk):
+    def post(self, request):
         channel = request.data.get('channel')
         serializer = ChannelSerializer(data=channel)
         if serializer.is_valid(raise_exception=True):
@@ -37,6 +40,9 @@ class ChannelView(APIView):
 
 
 class ChannelRecordingsView(APIView):
+    """
+    View that gets all of the recordings associated with a channel
+    """
     def get(self, request, pk):
         channels = Channel.objects.all()
         channel = get_object_or_404(channels, pk=pk)
@@ -46,6 +52,9 @@ class ChannelRecordingsView(APIView):
 
 
 class RecordingView(APIView):
+    """
+    View to get a single recording from a channel
+    """
     def get(self, request, pk):
         recordings = Recording.objects.all()
         recording = get_object_or_404(recordings, pk=pk)

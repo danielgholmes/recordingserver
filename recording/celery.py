@@ -10,7 +10,7 @@ app = Celery('recording')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-
+# configure celery beat that runs the periodic task of initiating recording threads
 app.conf.beat_schedule = {
     "recording-task": {
         "task": "recording.tasks.start_recordings",
