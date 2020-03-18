@@ -50,7 +50,10 @@ def record_channel(channel):
 
     end_time = datetime.now(timezone.utc)
     recording = Recording(channel_id=channel['id'], start_time=start_time, end_time=end_time)
-    recording.path = f'{recording.channel.channel_type}/{recording.channel.keyname}/{filename}'
-    recording.save()
+    recording.path = f'{channel_type}/{keyname}/{filename}'
 
-
+    # check that the channel hasn't been deleted
+    if Channel.objects.filter(id=channel['id']).first():
+        recording.save()
+    else:
+        print('Channel deleted, recording not saved')

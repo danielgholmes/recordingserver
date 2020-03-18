@@ -33,7 +33,7 @@ class ChannelView(APIView):
         channels = Channel.objects.all()
         channel = get_object_or_404(channels, pk=pk)
         channel.delete()
-        return Response({"message": f"Channel {channel.name} with ID {channel.pk} deleted successfully"}, status=204)
+        return Response({"message": f"Channel {channel.name} with ID {pk} deleted successfully"}, status=204)
 
 
 class ChannelRecordingsView(APIView):

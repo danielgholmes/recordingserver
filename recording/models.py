@@ -25,7 +25,7 @@ class Channel(models.Model):
 
 
 class Recording(models.Model):
-    channel = models.ForeignKey(Channel, on_delete=models.PROTECT)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     path = models.CharField(max_length=256)
