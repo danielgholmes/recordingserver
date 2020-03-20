@@ -15,7 +15,9 @@ class RecordingError(Exception):
 @task
 def start_recordings() -> None:
     """
-    Parent task that starts periodically runs and initiates the recording threads for each channel
+    This task periodically gets all the the channels in the database and initiates a new recording thread for each of
+    them. Note that you will be constrained by the number of threads available on your machine. A channel will be using
+    two threads at any given time in order to cater for the recording overlap.
     """
     channels = Channel.objects.all().values()
     for channel in channels:
@@ -48,7 +50,7 @@ def record_channel(channel) -> None:
         filename = f'{keyname}_server01_{start_time_formatted}{file_format}'
         ffmpeg_command = (f'ffmpeg -i "{url}" -c:a aac -ab 48000 -ar 22050 -ac 1 -t {RECORDING_DURATION} '
                           f'{path + filename}')
-    else:
+    else:  # add other sources here
         raise RecordingError("Unknown channel type")
 
     try:
