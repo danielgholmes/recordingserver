@@ -2,10 +2,12 @@ Recordings Engineering Test
 ---------------------------
 This document will guide you through how to setup and test the Recordings Engineering 
 Test. First, you will need to install some dependencies and then run the automated
-test to verify the installation was successful. This guide will then explain how to
-do the manual tests of the application. The application was built on Ubuntu 18.04 
-using Django and the Django Rest Framework with a SQLite3 databse and Celery for 
-the recording threads. 
+test to verify the installation was successful.
+ 
+This guide will then explain how to do the manual tests of the application. The 
+application was built on Ubuntu 18.04 using Django and the Django Rest Framework with 
+a SQLite3 database and Celery for the recording threads. You can find pre-recorded 
+example files in the `recording_files` folder.
 
 Installation
 ------------
@@ -26,6 +28,7 @@ $ pipenv update
 ```
 Aside from the Python packages, you will also need Redis. You can find installation
 details [here](https://redis.io/topics/quickstart).
+details [here](https://redis.io/topics/quickstart).
 
 Running the server
 ------------------
@@ -42,7 +45,7 @@ $ python manage.py test recording.test_views
 API
 ---
 Below are is the API spec for the recording server. You can run these commands to
-interact with the API and create, read, update or delete your own data.
+interact with the API and create, read, update or delete your own channels and recordings.
 
 **Create a new channel**
 ```bash
@@ -59,6 +62,8 @@ Here is an example of the POST data that needs to be included.
     }
 }
 ```
+The `keyname` must be 10 characters in length. The `channel_type` can be either `radio`
+or `tv`.
 
 **View channel details**
 ```bash
@@ -131,20 +136,19 @@ Once you have familiarised yourself with the API, you are now ready to use the
 recording server! 
 
 Tip: For convenience, you can also view and update your database using the Django
-Admin at `127.0.0.1:8000/admin/`
+Admin at `127.0.0.1:8000/admin/`. Both the username and password are "admin".
 
 Making Recordings
 -----------------
 Before we can make recordings, we need to run the Celery worker and Celery Beat
 schedule that coordinates the recordings. Please make sure all of the commands below 
-are executed within the project root directory. We use Redis as the message broker for
-our tasks. Start Redis by running:
+are executed within the project root directory in your pipenv environment. We use 
+Redis as the message broker for our tasks. Start Redis by running:
 ```bash
 redis-server
 ```
 
-Before starting up Celery, make sure that your Django server is running. Also make sure
-that each of your commands are executed within your pipenv virtual environment.
+Before starting up Celery, make sure that your Django server is running. 
  
 Open up a new terminal window and run the following:
 ```bash
@@ -156,15 +160,17 @@ such, the number of recording threads was limited to only 2 channels which each 
 to 2 threads each. You may include any number of threads that you have available. Next, start 
 the Beat schedule by running the following in a new terminal window:
 ```bash
-celery -A recording beat --loglevel=info
+celery -A recording beat -l info
 ```
 If you have any Channels in database, the tasks will automatically start doing the
 recordings every 20 seconds with a 10 second overlap. You can find your recordings
 in the `recording_files` directory.
 
 If you add a new channel, it will start recording on the next beat cycle and will
-continue until you delete the channel. You may stop the recordings by simply cancelling
+continue until you delete the channel. You may stop the recordings by simply stopping
 the Celery Beat schedule process. 
+
+Thank you for taking the time to assess the test!
 
 Contact
 -------
