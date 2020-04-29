@@ -1,7 +1,6 @@
 Recordings Engineering Test
 ---------------------------
-This document will guide you through how to setup and test the Recordings Engineering 
-Test. First, you will need to install some dependencies and then run the automated
+This document will guide you through how to setup and test the server that records internet radio and TV channels. First, you will need to install some dependencies and then run the automated
 test to verify the installation was successful.
  
 This guide will then explain how to do the manual tests of the application. The 
@@ -169,8 +168,6 @@ in the `recording_files` directory.
 If you add a new channel, it will start recording on the next beat cycle and will
 continue until you delete the channel. You may stop the recordings by simply stopping
 the Celery Beat schedule process. 
-
-Thank you for taking the time to assess the test!
 
 Contact
 -------
