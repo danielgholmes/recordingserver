@@ -1,4 +1,4 @@
-Recordings Engineering Test
+TV and Radio Recording Server
 ---------------------------
 This document will guide you through how to setup and test the server that records internet radio and TV channels. First, you will need to install some dependencies and then run the automated
 test to verify the installation was successful.
